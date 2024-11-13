@@ -12,7 +12,7 @@ export default function Navbar({ setLoggedIn, setShowJoin, loggedIn, name }) {
   return (
     <>
       <div className="navbar-container">
-        <h1 className="navbar-heading">Some Company</h1>
+        <h1 className="navbar-heading">FilmQuest</h1>
         <div className="navbar-menu">
           <ul className="menu-list-items">
             <li className="menu">Home</li>

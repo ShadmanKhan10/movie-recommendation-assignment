@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import { buttonList } from "../Data/Data.js";
 import axios from "axios";
 import next from "../assets/next.png";
+import search from "../assets/search.png";
 
 export default function Home() {
   const [movieDetails, setMovieDetails] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState();
   const [selectedGenre, setSelectedGenre] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     selectedGenre && getMoviesFromGenres(selectedGenre);
@@ -15,7 +17,6 @@ export default function Home() {
 
   const getMoviesFromGenres = async (genreID) => {
     const response = await axios.get(
-      // `https://api.themoviedb.org/3/discover/movie?api_key=df6870b28b8bac6570172e8933e51d7e&with_genres=${genreID}page=6`
       `https://api.themoviedb.org/3/discover/movie?api_key=df6870b28b8bac6570172e8933e51d7e&sort_by=popularity.desc&with_genres=${genreID}&page=${page}`
     );
     try {
@@ -26,6 +27,11 @@ export default function Home() {
       console.log("Error getting movies", error);
     }
   };
+
+  const handleSearchQueryChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
   const movePageForwards = () => {
     setPage((prev) => prev + 1);
   };
@@ -43,7 +49,9 @@ export default function Home() {
       <div className="genreBtn-container">
         {buttonList.map((genre) => (
           <button
-            className="genreBtn"
+            className={`genreBtn ${
+              selectedGenre === genre.id ? "selected" : ""
+            }`}
             onClick={() => handleGenreSelection(genre.id)}
             key={genre.id}
           >
@@ -51,12 +59,23 @@ export default function Home() {
           </button>
         ))}
       </div>
+      <div className="search-container">
+        <div className="search-icon-container">
+          <img src={search} alt="search" className="search-icon" />
+        </div>
+        <input
+          onChange={handleSearchQueryChange}
+          className="search-input"
+          type="text"
+          value={searchQuery}
+        />
+      </div>
       <div className="all-movies-container">
         {movieDetails.map((movie) => (
           <div key={movie.title} className="movie-details-card">
             <img
               className="movie-poster"
-              src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
+              src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
               alt="poster"
             />
             <p className="movie-name">
