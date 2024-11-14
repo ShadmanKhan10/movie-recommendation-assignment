@@ -15,10 +15,14 @@ export default function Navbar({ setLoggedIn, setShowJoin, loggedIn, name }) {
         <h1 className="navbar-heading">FilmQuest</h1>
         <div className="navbar-menu">
           <ul className="menu-list-items">
-            <li className="menu">Home</li>
+            <Link to="/" className="menu">
+              Home
+            </Link>
             <li className="menu">About</li>
             <li className="menu">Contact</li>
-            <li className="menu">SignIn</li>
+            <Link to="/sign-in" className="menu">
+              SignIn
+            </Link>
             {!loggedIn ? (
               <Link to="/join" onClick={handleShowJoin} className="menu join">
                 Join

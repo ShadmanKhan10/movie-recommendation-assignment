@@ -38,3 +38,25 @@ body {
   font-style: normal;
   font-display: swap;
 }
+
+/* 
+//import { DATA } from "../Data/Data.js";
+// const [filteredGenreMovies, setFilteredGenreMovies] = useState([]);
+
+// const [selectedGenres, setSelectedGenres] = useState(new Set());
+
+//const filterMovies = (genre) => {
+//     const updatedGenres = new Set(selectedGenres);
+
+//     updatedGenres.has(genre)
+//       ? updatedGenres.delete(genre)
+//       : updatedGenres.add(genre);
+
+//     setSelectedGenres(updatedGenres);
+
+//     const filteredMovies = DATA.filter((movie) =>
+//       movie.Genre.some((movieGenre) => updatedGenres.has(movieGenre))
+//     );
+
+//     setFilteredGenreMovies(filteredMovies);
+//   }; */

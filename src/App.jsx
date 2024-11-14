@@ -4,6 +4,7 @@ import Navbar from "./Components/Navbar";
 import Join from "./Components/Join.jsx";
 import { Routes, Route } from "react-router-dom";
 import Home from "./Components/Home.jsx";
+import SignIn from "./Components/SignIn.jsx";
 
 function App() {
   const [name, setName] = useState("");
@@ -18,13 +19,14 @@ function App() {
         setShowJoin={setShowJoin}
         name={name}
       />
-      {loggedIn && (
+      {/* {loggedIn && (
         <p className="welcome-text">
           Hi {name}, We were waiting for you, We've got your binge right here{" "}
         </p>
-      )}
+      )} */}
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/sign-in" element={<SignIn />} />
         <Route
           path="/join"
           element={

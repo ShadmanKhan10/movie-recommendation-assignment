@@ -1,3 +1,141 @@
+.movie-details-pop-up-container {
+  position: fixed;
+  top: 3rem;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  /* align-items: center; */
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+.movie-details-pop-up {
+  position: relative;
+  top: 3vw;
+  width: 80%;
+  height: 80%;
+  background-color: rgba(255, 208, 0, 0.886);
+}
+.popUp_backdrop {
+  width: 100%;
+  height: 55%;
+  object-fit: cover;
+}
+.popUp_poster {
+  position: absolute;
+  top: 25%;
+  left: 2vw;
+  width: 160px;
+  height: 220px;
+  object-fit: cover;
+  z-index: 5;
+}
+.perticular-movie-title {
+  position: absolute;
+  top: 58%;
+  left: 200px;
+  z-index: 6;
+  font-size: 1.5rem;
+}
+.comments-container {
+  position: absolute;
+  top: 70%;
+  left: 200px;
+  width: 65%;
+  z-index: 6;
+  /* border: 2px solid black; */
+  height: 25%;
+  overflow-y: auto;
+  padding: 5px;
+  box-sizing: border-box;
+}
+.comment {
+  display: block;
+}
+.comment-input-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  left: 100%;
+  transform: translateX(-100%);
+  margin-bottom: 0.3rem;
+  gap: 5px;
+}
+.username {
+  font-weight: bold;
+  font-size: 1rem;
+  margin-right: 5px;
+}
+.comment-input {
+  background: transparent;
+  border: 1px solid black;
+  height: 1.5rem;
+  outline: none;
+  width: 280px;
+}
+.comment-btn {
+  height: 1.69rem;
+  border: none;
+  width: 40%;
+  cursor: pointer;
+}
+.perticular-movie-description {
+  position: absolute;
+  left: 200px;
+  top: 37%;
+  color: white;
+  font-size: 1rem;
+  /* border: 2px solid red; */
+  height: 5rem;
+  overflow-y: auto;
+  margin-right: 5px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 5px;
+  box-sizing: border-box;
+}
+.perticular-movie-description::-webkit-scrollbar {
+  display: none;
+}
+.social-icons-container {
+  position: absolute;
+  top: 75%;
+  left: 2vw;
+  z-index: 6;
+  width: 155px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0.5%;
+}
+.social-icon {
+  height: 100%;
+  width: 50px;
+  object-fit: contain;
+  cursor: pointer;
+}
+.close-btn-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  /* border: 2px solid red; */
+  width: 2vw;
+  height: 2vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5px;
+}
+.close-icon {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+  cursor: pointer;
+}
+
 .navbar-container {
   display: flex;
   justify-content: space-between;
@@ -8,7 +146,8 @@
   position: fixed;
   top: 0;
   left: 0;
-  background-color: black;
+  /* background-color: black; */
+  background-color: #1b2459;
   color: white;
   height: 50px;
   z-index: 100;
@@ -28,6 +167,11 @@
   padding: 0;
   font-size: 1rem;
 }
+.menu {
+  cursor: pointer;
+  text-decoration: none;
+  color: white;
+}
 .join {
   background-color: white;
   border-radius: 1vw;
@@ -41,9 +185,9 @@
   text-decoration: none;
 }
 .logged {
-  background-color: rgb(102, 248, 102);
+  background: linear-gradient(#3f51b5, #733ab3);
   border-radius: 1.5rem;
-  color: black;
+  color: rgba(255, 255, 255, 0.8);
   width: 3rem;
   height: 2.8rem;
   display: flex;
@@ -52,6 +196,7 @@
   cursor: pointer;
   font-size: 2rem;
   font-weight: bold;
+  font-family: "Gilroy-Semibold";
 }
 .welcome-text {
   color: brown;
@@ -82,7 +227,7 @@
   font-size: 0.8rem;
   /* font-weight: bold; */
   cursor: pointer;
-  font-family: "Gilroy-Medium";
+  font-family: "Gilroy-Normal";
 }
 .selected {
   /* background: #fec601; */
@@ -121,6 +266,7 @@
 }
 
 .movie-details-card {
+  position: relative;
   width: 200px;
   height: 300px;
   /* border: 2px solid black; */
@@ -130,6 +276,33 @@
   color: white;
   background-color: rgba(255, 255, 255, 0.25);
 }
+.overlay-movie-details {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.movie-details-card:hover .overlay-movie-details {
+  opacity: 1; /* Show overlay on hover */
+}
+.show-details-btn {
+  width: 60%;
+  height: 2rem;
+  font-size: 1rem;
+  font-family: "Gilroy-Normal";
+  cursor: pointer;
+  border: none;
+  background-color: #3f51b5;
+  color: rgba(255, 255, 255, 0.8);
+}
+
 .movie-poster {
   width: 100%;
   height: 80%;
@@ -188,7 +361,7 @@
   width: 40px;
   position: absolute;
   top: 0;
-  left: 0;
+  right: 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -197,16 +370,96 @@
   height: 80%;
   width: 100%;
   object-fit: contain;
+  cursor: pointer;
 }
 .search-input {
   width: 100%;
   height: 100%;
   background: transparent;
   border: 1.5px solid rgba(255, 255, 255, 0.5);
-  padding-left: 50px;
+  padding-right: 50px;
+  padding-left: 5px;
   box-sizing: border-box;
   outline: none;
   font-family: "Gilroy-Medium";
   font-size: 1.1rem;
   color: rgba(255, 255, 255, 0.8);
+}
+
+.signup-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* border: 2px solid black; */
+  width: 400px;
+  height: 300px;
+  padding: 10px;
+  box-sizing: border-box;
+  background-color: rgba(255, 255, 255, 0.09);
+}
+.sign-up {
+  margin: 0;
+  text-align: center;
+  font-size: 1.5rem;
+  font-family: "Gilroy-Semibold";
+  color: rgba(255, 255, 255, 0.8);
+}
+.signup-tagline {
+  margin-top: 5px;
+  margin-bottom: 0;
+  text-align: center;
+  font-size: 1rem;
+  font-family: "Gilroy-Normal";
+  color: rgba(255, 255, 2, 0.842);
+}
+.form-container {
+  position: relative;
+  top: 35%;
+  transform: translateY(-35%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.input-join {
+  width: 80%;
+  background: transparent;
+  border: 1px solid white;
+  height: 2rem;
+  color: rgba(255, 255, 255, 0.9);
+  outline: none;
+  font-size: 1rem;
+  font-family: "Gilroy-Normal";
+  padding-left: 8px;
+  box-sizing: border-box;
+}
+.input-join::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+.join-btn {
+  width: 40%;
+  height: 2rem;
+  font-size: 1rem;
+  font-family: "Gilroy-Normal";
+  cursor: pointer;
+  border: none;
+}
+.sign-in {
+  text-decoration: underline;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.9);
+  cursor: pointer;
+}
+.error-msg {
+  font-size: 14px;
+  color: rgba(255, 255, 2, 0.842);
+  position: relative;
+  top: -10px;
+}
+.loader {
+  height: 2rem;
+  width: 2rem;
+  object-fit: contain;
 }
