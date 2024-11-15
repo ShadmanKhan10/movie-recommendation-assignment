@@ -19,6 +19,7 @@ export default function Home() {
   const [searchedMovieDetails, setSearchedMovieDetails] = useState([]);
   const [showMovieDetailsPopUp, setShowMovieDetailsPopUp] = useState(false);
   const [likeClicked, setLikeClicked] = useState(false);
+  const [showComment, setShowComment] = useState(false);
 
   const [poster, setPoster] = useState(null);
   const [backdropImg, setBackdropImg] = useState(null);
@@ -93,6 +94,9 @@ export default function Home() {
   const processLike = () => {
     setLikeClicked((prev) => !prev);
   };
+  const enableCommentInput = () => {
+    setShowComment((prev) => !prev);
+  };
 
   return (
     <>
@@ -156,6 +160,14 @@ export default function Home() {
         <div className="all-movies-container">
           {searchedMovieDetails.map((movie) => (
             <div key={movie.id} className="movie-details-card">
+              <div className="overlay-movie-details">
+                <button
+                  onClick={() => getPerticularMovieDetails(movie)}
+                  className="show-details-btn"
+                >
+                  Show Details
+                </button>
+              </div>
               <img
                 className="movie-poster"
                 src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
@@ -210,6 +222,7 @@ export default function Home() {
             <label className="perticular-movie-title">
               {movieName} [{releaseDate}]
             </label>
+
             <div className="social-icons-container">
               <img
                 src={!likeClicked ? like : liked}
@@ -217,33 +230,75 @@ export default function Home() {
                 alt="like"
                 className="social-icon"
               />
-              <img src={comment} alt="comment" className="social-icon" />
+              <img
+                src={comment}
+                onClick={enableCommentInput}
+                alt="comment"
+                className="social-icon"
+              />
               <img src={share} alt="share" className="social-icon" />
             </div>
             <div className="perticular-movie-description">
               <label>{movieDescription}</label>
             </div>
-            <div className="comments-container">
-              <label className="comment">
-                <span className="username">Shadman Khan:</span>Wonderful movie,
-                really liked it
-              </label>
-              <label className="comment">
-                <span className="username">Hamdan Khan:</span>It was really a
-                great watch
-              </label>
-              <lable className="comment">
-                <span className="username">MD. Sami Adnan:</span>Theres
-                something i'd never forget about this movie
-              </lable>
-              <label className="comment">
-                <span className="username">Faisal Khan:</span>Really great movie
-              </label>
-              <div className="comment-input-container">
-                <input type="text" className="comment-input" />
-                <button className="comment-btn">Comment</button>
+            <div className="all-comments-container">
+              <div className="comments-container">
+                <label className="username">Shadman Khan:</label>{" "}
+                <label className="comment">Wonderful Movie, Enjoyed It</label>
+              </div>
+              <div className="comments-container">
+                <label className="username">Shadman Khan:</label>{" "}
+                <label className="comment">Wonderful Movie, Enjoyed It</label>
+              </div>
+              <div className="comments-container">
+                <label className="username">Shadman Khan:</label>{" "}
+                <label className="comment">Wonderful Movie, Enjoyed It</label>
+              </div>
+              <div className="comments-container">
+                <label className="username">Shadman Khan:</label>{" "}
+                <label className="comment">Wonderful Movie, Enjoyed It</label>
+              </div>
+              <div className="comments-container">
+                <label className="username">Shadman Khan:</label>{" "}
+                <label className="comment">Wonderful Movie, Enjoyed It</label>
+              </div>
+              <div className="comments-container">
+                <label className="username">Shadman Khan:</label>{" "}
+                <label className="comment">Wonderful Movie, Enjoyed It</label>
+              </div>
+              <div className="comments-container">
+                <label className="username">Shadman Khan:</label>{" "}
+                <label className="comment">
+                  jhgHGAJHGJHAG AGJGAJHG JHSGJKGSJHG ANBJHGAJ KJAHKJHAKJH
+                  KJAHKJHA KJHAKJHAK JHAKJHKJ GJHSGJWonderful Movie, Enjoyed It
+                </label>
+              </div>
+              <div className="comments-container">
+                <label className="username">Shadman Khan:</label>{" "}
+                <label className="comment">Wonderful Movie, Enjoyed It</label>
+              </div>
+              <div className="comments-container">
+                <label className="username">Shadman Khan:</label>{" "}
+                <label className="comment">Wonderful Movie, Enjoyed It</label>
               </div>
             </div>
+            {showComment && (
+              <div className="comment-input-container">
+                <div className="comment-icon-container">
+                  <img
+                    onClick={getMovieOnSearch}
+                    src={share}
+                    alt="search"
+                    className="comment-icon"
+                  />
+                </div>
+                <input
+                  placeholder="Comment"
+                  className="comment-input"
+                  type="text"
+                />
+              </div>
+            )}
           </div>
         </div>
       )}
