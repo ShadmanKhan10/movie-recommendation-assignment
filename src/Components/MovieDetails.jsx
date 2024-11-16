@@ -4,6 +4,8 @@ import liked from "../assets/liked_clicked.png";
 import comment from "../assets/comment.png";
 import share from "../assets/share.png";
 import closeImg from "../assets/close.png";
+import save from "../assets/save.png";
+import saved from "../assets/saved.png";
 
 export default function MovieDetails({
   showMovieDetailsPopUp,
@@ -16,6 +18,7 @@ export default function MovieDetails({
 }) {
   const [likeClicked, setLikeClicked] = useState(false);
   const [showComment, setShowComment] = useState(false);
+  const [isMovieSaved, setIsMovieSaved] = useState(false);
 
   const handlePopUpDisplay = () => {
     setShowMovieDetailsPopUp((prev) => !prev);
@@ -26,6 +29,9 @@ export default function MovieDetails({
   };
   const enableCommentInput = () => {
     setShowComment((prev) => !prev);
+  };
+  const enableMovieSaving = () => {
+    setIsMovieSaved((prev) => !prev);
   };
 
   return (
@@ -63,7 +69,12 @@ export default function MovieDetails({
                 alt="comment"
                 className="social-icon"
               />
-              <img src={share} alt="share" className="social-icon" />
+              <img
+                onClick={enableMovieSaving}
+                src={!isMovieSaved ? save : saved}
+                alt="share"
+                className="social-icon"
+              />
             </div>
             <div className="perticular-movie-description">
               <label>{movieDescription}</label>
