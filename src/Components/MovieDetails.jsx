@@ -6,6 +6,8 @@ import share from "../assets/share.png";
 import closeImg from "../assets/close.png";
 import save from "../assets/save.png";
 import saved from "../assets/saved.png";
+import user from "../assets/user.png";
+import next from "../assets/next.png";
 
 export default function MovieDetails({
   showMovieDetailsPopUp,
@@ -15,10 +17,13 @@ export default function MovieDetails({
   movieDescription,
   movieName,
   releaseDate,
+  castDetails,
 }) {
   const [likeClicked, setLikeClicked] = useState(false);
   const [showComment, setShowComment] = useState(false);
   const [isMovieSaved, setIsMovieSaved] = useState(false);
+  const [showingAllCast, setShowingAllCast] = useState(false);
+  const [castIndex, setCastIndex] = useState(9);
 
   const handlePopUpDisplay = () => {
     setShowMovieDetailsPopUp((prev) => !prev);
@@ -32,6 +37,15 @@ export default function MovieDetails({
   };
   const enableMovieSaving = () => {
     setIsMovieSaved((prev) => !prev);
+  };
+  const toggleCastDisplay = () => {
+    if (castIndex === 9) {
+      setShowingAllCast((prev) => !prev);
+      setCastIndex(castDetails.length);
+    } else {
+      setShowingAllCast((prev) => !prev);
+      setCastIndex(9);
+    }
   };
 
   return (
@@ -79,7 +93,7 @@ export default function MovieDetails({
             <div className="perticular-movie-description">
               <label>{movieDescription}</label>
             </div>
-            <div className="all-comments-container">
+            {/* <div className="all-comments-container">
               <div className="comments-container">
                 <label className="username">Shadman Khan:</label>{" "}
                 <label className="comment">Wonderful Movie, Enjoyed It</label>
@@ -119,19 +133,52 @@ export default function MovieDetails({
                 <label className="username">Shadman Khan:</label>{" "}
                 <label className="comment">Wonderful Movie, Enjoyed It</label>
               </div>
-            </div>
+            </div> */}
             {showComment && (
               <div className="comment-input-container">
                 <div className="comment-icon-container">
                   <img src={share} alt="search" className="comment-icon" />
                 </div>
                 <input
-                  placeholder="Comment"
+                  placeholder="Write your Review"
                   className="comment-input"
                   type="text"
                 />
               </div>
             )}
+            <div className="cast-container">
+              {castDetails.map(
+                (cast, index) =>
+                  index < castIndex && (
+                    <div key={cast.cast_id} className="cast-member">
+                      <img
+                        src={
+                          cast.profile_path
+                            ? `https://image.tmdb.org/t/p/original${cast.profile_path}`
+                            : user
+                        }
+                        about="actor"
+                        className="actor-img"
+                      />
+                      <label className="actor-name">{cast.name}</label>
+                      <label className="actor-character">
+                        {cast.character}
+                      </label>
+                    </div>
+                  )
+              )}
+              <div className="show-more-container">
+                <label className="show-more">
+                  {castIndex === 9 ? "Show More" : "Show Less"}
+                </label>
+                <img
+                  onClick={toggleCastDisplay}
+                  src={next}
+                  alt="down"
+                  className={castIndex === 9 ? "down-icon" : "up-icon"}
+                />
+              </div>
+            </div>
           </div>
         </div>
       )}

@@ -14,16 +14,28 @@ export default function MovieList({
   const [movieDescription, setMovieDescription] = useState("");
   const [movieName, setMovieName] = useState("");
   const [releaseDate, setReleaseDate] = useState("");
+  const [castDetails, setCastDetails] = useState([]);
 
-  const getWatchProviders = async (id) => {
+  // const getWatchProviders = async (id) => {
+  //   const response = await axios.get(
+  //     `https://api.themoviedb.org/3/movie/${id}/watch/providers?api_key=df6870b28b8bac6570172e8933e51d7e`
+  //   );
+  //   try {
+  //     console.log(response.data.results);
+  //     console.log(response.data.results.AD.flatrate[0].provider_name);
+  //   } catch (error) {
+  //     console.log("Error getting movie", error);
+  //   }
+  // };
+
+  const getCast = async (id) => {
     const response = await axios.get(
-      `https://api.themoviedb.org/3/movie/${id}/watch/providers?api_key=df6870b28b8bac6570172e8933e51d7e`
+      `https://api.themoviedb.org/3/movie/${id}/credits?api_key=df6870b28b8bac6570172e8933e51d7e`
     );
     try {
-      console.log(response.data.results);
-      console.log(response.data.results.AD.flatrate[0].provider_name);
-      console.log(response.data.results.AE.flatrate[0].provider_name);
-      console.log(response.data.results.AG.flatrate[0].provider_name);
+      console.log(response.data.cast);
+      console.log(response.data.cast[0].name);
+      setCastDetails(response.data.cast);
     } catch (error) {
       console.log("Error getting movie", error);
     }
@@ -31,7 +43,8 @@ export default function MovieList({
 
   const getPerticularMovieDetails = (perticularMovie) => {
     handlePopUpDisplay();
-    getWatchProviders(perticularMovie.id);
+    // getWatchProviders(perticularMovie.id);
+    getCast(perticularMovie.id);
     console.log(perticularMovie);
     setBackdropImg(perticularMovie.backdrop_path);
     setPoster(perticularMovie.poster_path);
@@ -109,6 +122,7 @@ export default function MovieList({
         movieDescription={movieDescription}
         movieName={movieName}
         releaseDate={releaseDate}
+        castDetails={castDetails}
       />
     </>
   );

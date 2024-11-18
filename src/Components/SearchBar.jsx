@@ -21,6 +21,10 @@ export default function SearchBar({
     setSearchQuery(event.target.value);
   };
 
+  const handleEnterPress = (event) => {
+    event.key === "Enter" && getMovieOnSearch();
+  };
+
   const getMovieOnSearch = async () => {
     const response = await axios.get(
       `https://api.themoviedb.org/3/search/movie?query=${searchQuery}&api_key=df6870b28b8bac6570172e8933e51d7e&page=${searchPage}`
@@ -55,6 +59,7 @@ export default function SearchBar({
           className="search-input"
           type="text"
           value={searchQuery}
+          onKeyDown={handleEnterPress}
         />
       </div>
     </>
