@@ -40,6 +40,24 @@
   object-fit: cover;
   z-index: 5;
 }
+.genres-container {
+  position: absolute;
+  top: 60vh;
+  left: 2vw;
+
+  display: inline-block;
+  width: 180px;
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 5px;
+  padding-left: 3px;
+  box-sizing: border-box;
+  font-size: 1rem;
+}
+.genre-heading {
+  font-weight: bold;
+}
 .perticular-movie-title {
   position: absolute;
   top: 58%;
@@ -94,6 +112,7 @@
 .show-more {
   text-decoration: underline;
   font-size: 1rem;
+  cursor: pointer;
 }
 .down-icon {
   height: 15px;
@@ -341,6 +360,15 @@
 }
 .after-navbar-container {
   margin-top: 60px;
+}
+.gnere-movie-loader {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+  z-index: 50;
 }
 .all-movies-container {
   margin-top: 40px;

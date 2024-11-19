@@ -15,6 +15,7 @@ export default function MovieList({
   const [movieName, setMovieName] = useState("");
   const [releaseDate, setReleaseDate] = useState("");
   const [castDetails, setCastDetails] = useState([]);
+  const [genres, setGenres] = useState([]);
 
   // const getWatchProviders = async (id) => {
   //   const response = await axios.get(
@@ -34,16 +35,28 @@ export default function MovieList({
     );
     try {
       console.log(response.data.cast);
-      console.log(response.data.cast[0].name);
       setCastDetails(response.data.cast);
     } catch (error) {
       console.log("Error getting movie", error);
     }
   };
 
+  const getGenres = async (id) => {
+    const response = await axios.get(
+      `https://api.themoviedb.org/3/movie/${id}?api_key=df6870b28b8bac6570172e8933e51d7e`
+    );
+    try {
+      console.log(response.data.genres);
+      setGenres(response.data.genres);
+    } catch (error) {
+      console.log("Error getting movie Genres", error);
+    }
+  };
+
   const getPerticularMovieDetails = (perticularMovie) => {
     handlePopUpDisplay();
     // getWatchProviders(perticularMovie.id);
+    getGenres(perticularMovie.id);
     getCast(perticularMovie.id);
     console.log(perticularMovie);
     setBackdropImg(perticularMovie.backdrop_path);
@@ -123,6 +136,7 @@ export default function MovieList({
         movieName={movieName}
         releaseDate={releaseDate}
         castDetails={castDetails}
+        genres={genres}
       />
     </>
   );

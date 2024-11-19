@@ -18,6 +18,7 @@ export default function MovieDetails({
   movieName,
   releaseDate,
   castDetails,
+  genres,
 }) {
   const [likeClicked, setLikeClicked] = useState(false);
   const [showComment, setShowComment] = useState(false);
@@ -168,16 +169,30 @@ export default function MovieDetails({
                   )
               )}
               <div className="show-more-container">
-                <label className="show-more">
-                  {castIndex === 9 ? "Show More" : "Show Less"}
+                <label className="show-more" onClick={toggleCastDisplay}>
+                  {castDetails.length < 9
+                    ? ""
+                    : castIndex === 9
+                    ? "Show More"
+                    : "Show Less"}
                 </label>
-                <img
-                  onClick={toggleCastDisplay}
-                  src={next}
-                  alt="down"
-                  className={castIndex === 9 ? "down-icon" : "up-icon"}
-                />
+                {castDetails.length > 9 && (
+                  <img
+                    onClick={toggleCastDisplay}
+                    src={next}
+                    alt="down"
+                    className={castIndex === 9 ? "down-icon" : "up-icon"}
+                  />
+                )}
               </div>
+            </div>
+            <div className="genres-container">
+              <span className="genre-heading">Genres:</span>
+              {genres.map((genre) => (
+                <label key={genre.id} className="genre">
+                  {genre.name}
+                </label>
+              ))}
             </div>
           </div>
         </div>

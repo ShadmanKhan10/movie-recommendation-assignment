@@ -4,6 +4,7 @@ import axios from "axios";
 import next from "../assets/next.png";
 import SearchBar from "./SearchBar.jsx";
 import MovieList from "./MovieList.jsx";
+import loader from "../assets/loader.svg";
 
 export default function Home() {
   const [movieDetails, setMovieDetails] = useState([]);
@@ -14,12 +15,14 @@ export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
   const [searching, setSearching] = useState(false);
   const [searchedMovieDetails, setSearchedMovieDetails] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     selectedGenre && getMoviesFromGenres(selectedGenre);
   }, [page, selectedGenre]);
 
   const getMoviesFromGenres = async (genreID) => {
+    setLoading(true);
     const response = await axios.get(
       `https://api.themoviedb.org/3/discover/movie?api_key=df6870b28b8bac6570172e8933e51d7e&sort_by=popularity.desc&with_genres=${genreID}&page=${page}`
     );
@@ -29,8 +32,10 @@ export default function Home() {
       setSearchQuery("");
       setMovieDetails(response.data.results);
       setTotalPages(response.data.total_pages);
+      setLoading(false);
     } catch (error) {
       console.log("Error getting movies", error);
+      setLoading(fasle);
     }
   };
 
@@ -80,11 +85,15 @@ export default function Home() {
         setPage={setPage}
       />
 
-      <MovieList
-        searching={searching}
-        movieDetails={movieDetails}
-        searchedMovieDetails={searchedMovieDetails}
-      />
+      {loading ? (
+        <img src={loader} alt="loading" className="gnere-movie-loader" />
+      ) : (
+        <MovieList
+          searching={searching}
+          movieDetails={movieDetails}
+          searchedMovieDetails={searchedMovieDetails}
+        />
+      )}
 
       {(selectedGenre || totalPages > 1) && (
         <div className="page-container">
