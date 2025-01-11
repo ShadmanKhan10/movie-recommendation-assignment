@@ -50,7 +50,7 @@ JavaScript
 
 # Backend API:
 
-# The Movie Database (TMDB) API:
+The Movie Database (TMDB) API:
 Fetch movie genres, details, cast, and crew.
 
 # Environment Management:
