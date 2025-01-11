@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import MovieDetails from "./MovieDetails";
 import axios from "axios";
+import backdrop from "../assets/backdrop.jpg";
 
 export default function MovieList({
   searching,
@@ -16,6 +17,8 @@ export default function MovieList({
   const [releaseDate, setReleaseDate] = useState("");
   const [castDetails, setCastDetails] = useState([]);
   const [genres, setGenres] = useState([]);
+  const [runtime, setRunTime] = useState("");
+  const apiKey = import.meta.env.VITE_API_KEY;
 
   // const getWatchProviders = async (id) => {
   //   const response = await axios.get(
@@ -31,7 +34,7 @@ export default function MovieList({
 
   const getCast = async (id) => {
     const response = await axios.get(
-      `https://api.themoviedb.org/3/movie/${id}/credits?api_key=df6870b28b8bac6570172e8933e51d7e`
+      `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${apiKey}`
     );
     try {
       console.log(response.data.cast);
@@ -43,9 +46,15 @@ export default function MovieList({
 
   const getGenres = async (id) => {
     const response = await axios.get(
-      `https://api.themoviedb.org/3/movie/${id}?api_key=df6870b28b8bac6570172e8933e51d7e`
+      `https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}`
     );
     try {
+      console.log("Selected movie responses ", response);
+      response.data.runtime < 90 && setRunTime("Short");
+      response.data.runtime >= 90 &&
+        response.data.runtime < 120 &&
+        setRunTime("Medium");
+      response.data.runtime >= 120 && setRunTime("Long");
       console.log(response.data.genres);
       setGenres(response.data.genres);
     } catch (error) {
@@ -59,7 +68,7 @@ export default function MovieList({
     getGenres(perticularMovie.id);
     getCast(perticularMovie.id);
     console.log(perticularMovie);
-    setBackdropImg(perticularMovie.backdrop_path);
+    setBackdropImg(perticularMovie.backdrop_path || backdrop);
     setPoster(perticularMovie.poster_path);
     setMovieName(perticularMovie.title);
     setMovieDescription(perticularMovie.overview);
@@ -137,6 +146,7 @@ export default function MovieList({
         releaseDate={releaseDate}
         castDetails={castDetails}
         genres={genres}
+        runtime={runtime}
       />
     </>
   );

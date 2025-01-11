@@ -18,11 +18,6 @@ export default function Navbar({ setLoggedIn, setShowJoin, loggedIn, name }) {
             <Link to="/" className="menu">
               Home
             </Link>
-            <li className="menu">About</li>
-            <li className="menu">Contact</li>
-            <Link to="/sign-in" className="menu">
-              SignIn
-            </Link>
             {!loggedIn ? (
               <Link to="/join" onClick={handleShowJoin} className="menu join">
                 Join

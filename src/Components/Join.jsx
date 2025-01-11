@@ -29,15 +29,26 @@ export default function Join({ setLoggedIn, name, setName }) {
     return isValid;
   };
 
+  const handleClear = () => {
+    setName("");
+    setPassowrd("");
+  };
+
   const handlesubmit = (event) => {
     event.preventDefault();
     setLoading(true);
     if (validateInputs()) {
       setTimeout(() => {
-        setLoggedIn(true);
         setLoading(false);
+        setLoggedIn(true);
+        handleClear();
         navigate("/");
       }, 2000);
+    } else {
+      setTimeout(() => {
+        setLoading(false);
+        // navigate("/");
+      }, 1000);
     }
   };
 
@@ -56,7 +67,10 @@ export default function Join({ setLoggedIn, name, setName }) {
       <div className="signup-container">
         <p className="sign-up">Sign Up</p>
         <p className="signup-tagline">Let's begin the quest</p>
-        <form className="form-container" onSubmit={handlesubmit}>
+        <form
+          className="form-container"
+          onSubmit={name && password && handlesubmit}
+        >
           <input
             className="input-join"
             type="text"
@@ -86,9 +100,7 @@ export default function Join({ setLoggedIn, name, setName }) {
               "Join"
             )}
           </button>
-          <label onClick={navigateToSignIn} className="sign-in">
-            SignIn
-          </label>
+          {/* <label className="sign-in">SignIn</label> */}
         </form>
       </div>
     </>

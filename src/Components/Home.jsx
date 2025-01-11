@@ -16,15 +16,17 @@ export default function Home() {
   const [searching, setSearching] = useState(false);
   const [searchedMovieDetails, setSearchedMovieDetails] = useState([]);
   const [loading, setLoading] = useState(false);
+  const apiKey = import.meta.env.VITE_API_KEY;
 
   useEffect(() => {
     selectedGenre && getMoviesFromGenres(selectedGenre);
   }, [page, selectedGenre]);
 
   const getMoviesFromGenres = async (genreID) => {
+    console.log("Genre ID and page", genreID, page);
     setLoading(true);
     const response = await axios.get(
-      `https://api.themoviedb.org/3/discover/movie?api_key=df6870b28b8bac6570172e8933e51d7e&sort_by=popularity.desc&with_genres=${genreID}&page=${page}`
+      `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&sort_by=popularity.desc&with_genres=${genreID}&page=${page}`
     );
     try {
       console.log(response.data);

@@ -8,6 +8,7 @@ import save from "../assets/save.png";
 import saved from "../assets/saved.png";
 import user from "../assets/user.png";
 import next from "../assets/next.png";
+import Comments from "./Comments";
 
 export default function MovieDetails({
   showMovieDetailsPopUp,
@@ -19,6 +20,7 @@ export default function MovieDetails({
   releaseDate,
   castDetails,
   genres,
+  runtime,
 }) {
   const [likeClicked, setLikeClicked] = useState(false);
   const [showComment, setShowComment] = useState(false);
@@ -29,6 +31,7 @@ export default function MovieDetails({
   const handlePopUpDisplay = () => {
     setShowMovieDetailsPopUp((prev) => !prev);
   };
+  console.log("BAckfrp imagei is ", backdropImg);
 
   const processLike = () => {
     setLikeClicked((prev) => !prev);
@@ -68,7 +71,7 @@ export default function MovieDetails({
               className="popUp_poster"
             />
             <label className="perticular-movie-title">
-              {movieName} [{releaseDate}]
+              {movieName} [{releaseDate}] [{runtime}]
             </label>
 
             <div className="social-icons-container">
@@ -94,47 +97,7 @@ export default function MovieDetails({
             <div className="perticular-movie-description">
               <label>{movieDescription}</label>
             </div>
-            {/* <div className="all-comments-container">
-              <div className="comments-container">
-                <label className="username">Shadman Khan:</label>{" "}
-                <label className="comment">Wonderful Movie, Enjoyed It</label>
-              </div>
-              <div className="comments-container">
-                <label className="username">Shadman Khan:</label>{" "}
-                <label className="comment">Wonderful Movie, Enjoyed It</label>
-              </div>
-              <div className="comments-container">
-                <label className="username">Shadman Khan:</label>{" "}
-                <label className="comment">Wonderful Movie, Enjoyed It</label>
-              </div>
-              <div className="comments-container">
-                <label className="username">Shadman Khan:</label>{" "}
-                <label className="comment">Wonderful Movie, Enjoyed It</label>
-              </div>
-              <div className="comments-container">
-                <label className="username">Shadman Khan:</label>{" "}
-                <label className="comment">Wonderful Movie, Enjoyed It</label>
-              </div>
-              <div className="comments-container">
-                <label className="username">Shadman Khan:</label>{" "}
-                <label className="comment">Wonderful Movie, Enjoyed It</label>
-              </div>
-              <div className="comments-container">
-                <label className="username">Shadman Khan:</label>{" "}
-                <label className="comment">
-                  jhgHGAJHGJHAG AGJGAJHG JHSGJKGSJHG ANBJHGAJ KJAHKJHAKJH
-                  KJAHKJHA KJHAKJHAK JHAKJHKJ GJHSGJWonderful Movie, Enjoyed It
-                </label>
-              </div>
-              <div className="comments-container">
-                <label className="username">Shadman Khan:</label>{" "}
-                <label className="comment">Wonderful Movie, Enjoyed It</label>
-              </div>
-              <div className="comments-container">
-                <label className="username">Shadman Khan:</label>{" "}
-                <label className="comment">Wonderful Movie, Enjoyed It</label>
-              </div>
-            </div> */}
+
             {showComment && (
               <div className="comment-input-container">
                 <div className="comment-icon-container">
@@ -147,44 +110,47 @@ export default function MovieDetails({
                 />
               </div>
             )}
-            <div className="cast-container">
-              {castDetails.map(
-                (cast, index) =>
-                  index < castIndex && (
-                    <div key={cast.cast_id} className="cast-member">
-                      <img
-                        src={
-                          cast.profile_path
-                            ? `https://image.tmdb.org/t/p/original${cast.profile_path}`
-                            : user
-                        }
-                        about="actor"
-                        className="actor-img"
-                      />
-                      <label className="actor-name">{cast.name}</label>
-                      <label className="actor-character">
-                        {cast.character}
-                      </label>
-                    </div>
-                  )
-              )}
-              <div className="show-more-container">
-                <label className="show-more" onClick={toggleCastDisplay}>
-                  {castDetails.length < 9
-                    ? ""
-                    : castIndex === 9
-                    ? "Show More"
-                    : "Show Less"}
-                </label>
-                {castDetails.length > 9 && (
-                  <img
-                    onClick={toggleCastDisplay}
-                    src={next}
-                    alt="down"
-                    className={castIndex === 9 ? "down-icon" : "up-icon"}
-                  />
+            <div className="movie-details-container">
+              <div className="cast-container">
+                {castDetails.map(
+                  (cast, index) =>
+                    index < castIndex && (
+                      <div key={cast.cast_id} className="cast-member">
+                        <img
+                          src={
+                            cast.profile_path
+                              ? `https://image.tmdb.org/t/p/original${cast.profile_path}`
+                              : user
+                          }
+                          about="actor"
+                          className="actor-img"
+                        />
+                        <label className="actor-name">{cast.name}</label>
+                        <label className="actor-character">
+                          {cast.character}
+                        </label>
+                      </div>
+                    )
                 )}
+                <div className="show-more-container">
+                  <label className="show-more" onClick={toggleCastDisplay}>
+                    {castDetails.length < 9
+                      ? ""
+                      : castIndex === 9
+                      ? "Show More"
+                      : "Show Less"}
+                  </label>
+                  {castDetails.length > 9 && (
+                    <img
+                      onClick={toggleCastDisplay}
+                      src={next}
+                      alt="down"
+                      className={castIndex === 9 ? "down-icon" : "up-icon"}
+                    />
+                  )}
+                </div>
               </div>
+              <Comments />
             </div>
             <div className="genres-container">
               <span className="genre-heading">Genres:</span>
